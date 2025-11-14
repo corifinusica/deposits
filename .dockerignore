@@ -1,0 +1,4 @@
+*.ipynb
+*.md
+*.git
+__pycache__

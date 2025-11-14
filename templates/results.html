@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <body>
+    <div class="container">
+        <h1>📊 Результаты прогноза</h1>
+        
+        <div class="info-section">
+            <h3>📁 Информация о файле</h3>
+            <p><strong>Загруженный файл:</strong> {{ filename }}</p>
+            <p><strong>Период исходных данных:</strong> {{ results.data_period }}</p>
+            <p><strong>Прогноз на:</strong> {{ results.forecast_year }} год</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-title">Год прогноза</div>
+                <div class="stat-value">{{ results.forecast_year }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Месяцев прогноза</div>
+                <div class="stat-value">12</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Уникальных значений</div>
+                <div class="stat-value">{{ results.unique_values }}</div>
+            </div>
+        </div>
+
+        <h2>📅 Прогноз на {{ results.forecast_year }} год</h2>
+        <p style="color: #666;">Прирост вкладов физических лиц в рублях (модель kNN с k=3)</p>
+        
+        <table class="forecast-table">
+            <thead>
+                <tr>
+                    <th>Месяц</th>
+                    <th style="text-align: right;">Прогноз (млн руб)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for date, value in results.forecast_values %}
+                <tr>
+                    <td>{{ date }}</td>
+                    <td class="value-column">{{ "{:,.2f}".format(value) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="download-section">
+            <h3>💾 Скачать результаты</h3>
+            <p>Результаты прогноза доступны для скачивания в следующих форматах:</p>
+            <a href="/download/{{ results.filename_csv }}" class="download-btn">
+                📄 Скачать CSV
+            </a>
+            <a href="/download/{{ results.filename_xlsx }}" class="download-btn">
+                📊 Скачать Excel
+            </a>
+        </div>
+
+        <a href="/" class="back-btn">← Вернуться на главную</a>
+    </div>
+</body>
+</html>
+{% endblock %}

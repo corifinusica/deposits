@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>Welcome to Deposits forecast site!</h2>
+
+     
+     <p>Please complete the Excel form with data for the previous forecast year and 3 months prior to this year. As shown in the sample below.</p>
+
+     <title>{{ the_title }}</title>
+    <style>
+        .logo {
+            width: 200px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+        .icon {
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+        }
+    </style>
+
+<img src="{{ url_for('static', filename='images/2016_table_screenshot.png') }}" alt="example">
+
+    <div class="upload-form">
+        <h2>File uploading Excel</h2>
+        
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose Excel file (.xlsx):</label>
+                <input 
+                    type="file" 
+                    id="file" 
+                    name="file" 
+                    accept=".xlsx,.xls"
+                    required
+                >
+            </div>
+            
+            <button type="submit">To upload</button>
+        </form>
+        
+        <p style="margin-top: 20px; color: #666; font-size: 14px;">
+            Supported formats: .xlsx, .xls
+        </p>
+    </div>
+
+
+
+{% endblock %}
